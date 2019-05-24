@@ -20,7 +20,7 @@ import os
 import shutil
 import skimage.transform
 
-def encblock(module_list,inchan,nchan,k):
+def encblock(module_list,inchan,nchan,k,pad='reflection'):
   
   if pad == 'reflection':
     to_pad = int((k - 1) / 2)
@@ -48,7 +48,7 @@ def encblock(module_list,inchan,nchan,k):
   module_list.extend(block)
   return nchan
 
-def decblock(module_list,inchan,nchan,k):
+def decblock(module_list,inchan,nchan,k,pad='reflection'):
   
   if pad == 'reflection':
     to_pad = int((k - 1) / 2)
@@ -72,7 +72,7 @@ def decblock(module_list,inchan,nchan,k):
   module_list.extend(block)
   return nchan
 
-def skipblock(module_list,inchan,nchan,k):
+def skipblock(module_list,inchan,nchan,k,pad='reflection'):
     if pad == 'reflection':
         to_pad = int((k - 1) / 2)
         padding = torch.nn.ReflectionPad2d(to_pad)
@@ -126,7 +126,8 @@ class dip(torch.nn.Module):
             kernels,
             skip_nchan_list,
              skip_kernels,
-             make_enc = True
+             make_enc = True,
+             pad='reflection'
             ):
         
         upsample = []
