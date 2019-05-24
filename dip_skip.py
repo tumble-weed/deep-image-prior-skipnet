@@ -126,6 +126,7 @@ class dip(torch.nn.Module):
             kernels,
             skip_nchan_list,
              skip_kernels,
+             make_enc = True
             ):
         
         upsample = []
