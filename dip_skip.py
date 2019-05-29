@@ -127,7 +127,8 @@ class dip(torch.nn.Module):
             skip_nchan_list,
              skip_kernels,
              make_enc = True,
-             pad='reflection'
+             pad='reflection',
+             upsample_mode = 'bilinear',
             ):
         
         upsample = []
@@ -159,7 +160,7 @@ class dip(torch.nn.Module):
                     skipblock_params.append(get_block_params(skipblock_l))
                 pass
             
-            upsample = [torch.nn.Upsample(scale_factor = 2,mode = 'bilinear')]
+            upsample = [torch.nn.Upsample(scale_factor = 2,mode = upsample_mode)]
 
 
         decblocks = []
@@ -173,7 +174,7 @@ class dip(torch.nn.Module):
                 inchan = inchan + skip_nchan_list[::-1][l]
             inchan = decblock(decblock_l,inchan,nchan,k)
             to_cuda(decblock_l)
-            upsample = [torch.nn.Upsample(scale_factor = 2,mode = 'bilinear')]
+            upsample = [torch.nn.Upsample(scale_factor = 2,mode = upsample_mode)]
             inchan = nchan
             decblocks.append(decblock_l)
             decblock_params.append(get_block_params(decblock_l))
