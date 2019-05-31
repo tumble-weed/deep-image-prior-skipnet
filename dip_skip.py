@@ -8,17 +8,8 @@ Original file is located at
 """
 
 import torch
-from matplotlib import pyplot as plt
-import torchvision
-plt.rcParams['axes.grid']=False
 import numpy as np
-import itertools
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
-tensor_to_numpy = lambda t: t.detach().cpu().numpy()
-tensor_to_im =  lambda t:tensor_to_numpy(t.permute(0,2,3,1))[0]
-import os
-import shutil
-import skimage.transform
+
 
 def encblock(module_list,inchan,nchan,k,pad='reflection'):
   
